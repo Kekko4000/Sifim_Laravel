@@ -37,3 +37,9 @@ php artisan config:clear
 php artisan cache:clear
 php artisan route:clear
 php artisan view:clear
+
+
+
+DOCKER
+docker compose exec db psql -U laravel -d laravel  -> Entro db con postgresql
+docker compose restart app  -> Restart

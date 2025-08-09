@@ -17,4 +17,12 @@ export default defineConfig({
         react(),
         tailwindcss(),
     ],
+    server: {
+        host: true,           // equivale a 0.0.0.0
+        port: 5173,
+        hmr: {
+        host: 'localhost',  // il browser si connette a localhost:5173
+        port: 5173,
+        },
+    },
 });
