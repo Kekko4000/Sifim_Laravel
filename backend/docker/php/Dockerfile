@@ -17,7 +17,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 # --- Composer ---
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# --- Node.js (18 LTS è il più compatibile con molti progetti Vite attuali) ---
+# --- Node.js (18 LTS compatibile con Vite) ---
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
  && apt-get update && apt-get install -y nodejs \
  && node -v && npm -v \
@@ -25,26 +25,25 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 
 WORKDIR /app
 
-# NON portare l'.env locale dentro l'immagine
+# Copia file PHP e JS
 COPY . .
+
+# Rimuovi eventuale .env locale
 RUN rm -f .env
 
 # --- PHP deps ---
 RUN composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
 
-# --- JS deps + build (solo se esiste package.json e lo script build) ---
-# 1) se c'è package-lock usa npm ci, altrimenti npm i
+# --- JS deps + build ---
 RUN if [ -f package.json ]; then \
-      if [ -f package-lock.json ]; then npm ci --no-audit --no-fund; else npm i --no-audit --no-fund; fi && \
-      # controlla che esista lo script "build" in package.json
-      node -e "const p=require('./package.json'); if(!p.scripts||!p.scripts.build){process.exit(42)}" \
-      && npm run build || echo 'Nessuno script build: salto'; \
+      if [ -f package-lock.json ]; then npm ci --no-audit --no-fund; else npm install --no-audit --no-fund; fi && \
+      npm run build; \
     fi
 
-# Render esporrà questa porta via $PORT
+# --- Porta esposta da Render ---
 EXPOSE 10000
 
-# Avvio: key, cache, migrate, storage link, serve
+# --- Avvio ---
 CMD sh -lc '\
   if [ -z "$APP_KEY" ]; then php artisan key:generate --force; fi && \
   php artisan config:clear && \
