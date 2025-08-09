@@ -1,4 +1,4 @@
-import Form from '@/Pages/Admin/apartments/form';
+import Form from '@/Pages/Admin/apartments/Form';
 
 export default function Crea() {
   return (
