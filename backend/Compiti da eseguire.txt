@@ -1,0 +1,39 @@
+- Controllare l'abilitato in contenuti
+- Fare il controllo dei contenuti per la creazione dei testi
+- Rendere Multilingua i testi della Home
+
+
+
+
+PER FUTURA
+- CAPIRE COSA è  build.minify e build.rollupOptions PER VITE, E NEL CASO ABILITARLO
+- Creare la vista multi_apartments da database
+- disabilitare "opcache.validate_timestamps=0"
+- Preload: crea uno script (preload.php) che includa le classi più usate (model, service, helper).
+
+2. Ottimizza l’autoloader Composer
+- composer install --optimize-autoloader --classmap-authoritative
+- composer dump-autoload -o //rigenera quando serve
+
+
+
+PACCHETTI:
+- heroicons/react -> Icone 
+- headlessui/react -> Modali o altri componenti
+
+
+COMANDI
+
+- php artisan migrate   -> Upload delle tabelle e view
+- php artisan migrate:rollback  -> Torno indietro di uno step
+- php artisan migrate:status -> Vedere lo stutus degli migrati fatti
+- php artisan migrate:rollback --path=/database/migrations/2025_07_27_000000_create_apartments_table.php
+
+- composer dump-autoload  -> Ricrea la struttura del progetto
+
+//pulizia generale
+php artisan optimize:clear
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear

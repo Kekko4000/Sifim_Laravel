@@ -1,0 +1,24 @@
+:root {
+    /* Colore principale (brand) */
+    --color-primary: #B30017;
+    --color-primary-hover: #be0019;
+
+    /* Color neutri per testi, sfondi e bordi */
+    --color-text: #333333;
+    --color-bg: #F8F8F8;
+    --color-white: #FFFFFF;
+
+    /* Colore di richiamo per bottoni/hover */
+    --color-accent: #FFD700;
+    /* un giallo caldo che contrasta bene col rosso */
+
+    --color-bg-trans: rgba(255, 255, 255, 0.8);
+    --backdrop-blur: blur(6px);
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
+    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.479);
+    --spacing-ssm: 0.3rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+
+}

@@ -1,0 +1,43 @@
+{
+    "$schema": "https://json.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "devDependencies": {
+        "@tailwindcss/aspect-ratio": "^0.4.2",
+        "@tailwindcss/container-queries": "^0.1.1",
+        "@tailwindcss/forms": "^0.5.10",
+        "@tailwindcss/typography": "^0.5.16",
+        "@vitejs/plugin-react": "^4.7.0",
+        "autoprefixer": "^10.4.21",
+        "axios": "^1.8.2",
+        "concurrently": "^9.0.1",
+        "laravel-vite-plugin": "^1.2.0",
+        "postcss": "^8.5.6",
+        "vite": "^6.2.4"
+    },
+    "dependencies": {
+        "@headlessui/react": "^2.2.6",
+        "@heroicons/react": "^2.2.0",
+        "@inertiajs/inertia": "^0.11.1",
+        "@inertiajs/progress": "^0.2.7",
+        "@inertiajs/react": "^2.0.17",
+        "@react-google-maps/api": "^2.20.7",
+        "@tailwindcss/vite": "^4.1.11",
+        "flowbite": "^3.1.2",
+        "flowbite-react": "^0.11.9",
+        "i18next": "^25.3.2",
+        "i18next-browser-languagedetector": "^8.2.0",
+        "i18next-http-backend": "^3.0.2",
+        "nprogress": "^0.2.0",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
+        "react-i18next": "^15.6.1",
+        "react-router-dom": "^7.7.1",
+        "tailwindcss": "^4.1.11",
+        "ziggy-js": "^2.5.3"
+    }
+}

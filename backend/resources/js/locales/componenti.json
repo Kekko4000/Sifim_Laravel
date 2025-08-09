@@ -1,0 +1,80 @@
+{
+    "4": {
+        "id": 4,
+        "parentID": 0,
+        "image": null,
+        "imageUrl": null,
+        "meta": {
+            "en": {
+                "link": null,
+                "slug": "titolo-2",
+                "other": null,
+                "title": "Titolo 2",
+                "language": "en",
+                "subtitle": null,
+                "description": null
+            },
+            "it": {
+                "link": null,
+                "slug": "titolo-1",
+                "other": null,
+                "title": "Titolo 1",
+                "language": "it",
+                "subtitle": null,
+                "description": null
+            }
+        }
+    },
+    "7": {
+        "id": 7,
+        "parentID": 4,
+        "image": null,
+        "imageUrl": null,
+        "meta": {
+            "en": {
+                "link": null,
+                "slug": null,
+                "other": null,
+                "title": null,
+                "language": "en",
+                "subtitle": null,
+                "description": null
+            },
+            "it": {
+                "link": null,
+                "slug": "sottotitolo",
+                "other": null,
+                "title": "SOTTOTITOLO",
+                "language": "it",
+                "subtitle": "SOTTOTITOLO SSASA",
+                "description": "DESC"
+            }
+        }
+    },
+    "8": {
+        "id": 8,
+        "parentID": 0,
+        "image": "contents\/fqq9iMdmtP5yTxrdMIGBPD45liEEI4EUzcE01SGz.jpg",
+        "imageUrl": "http:\/\/127.0.0.1:8000\/storage\/contents\/fqq9iMdmtP5yTxrdMIGBPD45liEEI4EUzcE01SGz.jpg",
+        "meta": {
+            "en": {
+                "link": "\/registration",
+                "slug": "save-your-searches",
+                "other": "Register",
+                "title": "Save your Searches",
+                "language": "en",
+                "subtitle": null,
+                "description": "Don't let your dream home get away: register now and secure your favourite listings!"
+            },
+            "it": {
+                "link": "\/registrazione",
+                "slug": "salva-le-tue-ricerche",
+                "other": "Registrati",
+                "title": "Salva le tue Ricerche",
+                "language": "it",
+                "subtitle": null,
+                "description": "Non farti scappare la casa dei tuoi sogni: registrati ora e metti al sicuro i tuoi annunci preferiti!"
+            }
+        }
+    }
+}

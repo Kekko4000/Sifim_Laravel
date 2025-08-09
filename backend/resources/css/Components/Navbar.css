@@ -1,0 +1,129 @@
+
+/* 2) Reset box-model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 3) Navbar base (mobile) */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: var(--color-bg-trans);
+  backdrop-filter: var(--backdrop-blur);
+  box-shadow: var(--shadow);
+  z-index: 50;
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.logo{
+  max-width: 250px;
+}
+.logoMobile img{
+  max-width: 150px;
+}
+
+/* desktop nav hidden on mobile */
+.nav-links {
+  display: none;
+  position: relative;
+}
+
+.nav-link{
+  position: relative;
+}
+
+.nav-link::before{
+  content: '';
+  width: 0;
+  height: 2px;
+  position: absolute;
+  bottom: 2px;
+  background-color: var(--color-primary);
+  transition: width 0.2s ease-out;  /* animiamo width, non “underline” */
+}
+
+.nav-link:hover::before {
+  width: 100%;
+}
+
+
+
+/* hamburger visibile su mobile */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-ssm);
+  padding: var(--spacing-sm);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* span animations quando .active */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* link base (usati sia in nav desktop che mobile drawer) */
+.nav-link,
+.mobile-link {
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.nav-link:hover,
+.mobile-link:hover {
+  color: var(--color-primary);
+}
+
+/* CTA button */
+.nav-cta {
+  margin-left: var(--spacing-md);
+}
+
+
+.bg-navbar{
+  background-color: rgba(0, 0, 0, 0.216);
+}
+
+/* 4) Media query per desktop (≥ 768px) */
+@media (min-width: 768px) {
+  .navbar .container {
+    padding: var(--spacing-md) calc(var(--spacing-lg) * 2);
+  }
+
+  /* nav-links diventa visibile, hamburger nascosto */
+  .nav-links {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+  }
+  .hamburger {
+    display: none;
+  }
+}
