@@ -1,5 +1,5 @@
 import { usePage } from '@inertiajs/react';
-import Form from '@/Pages/Admin/categorie/Form';
+import Form from '@/Pages/Admin/categorie/form';
 
 export default function Edit() {
   const { props } = usePage();
