@@ -9,6 +9,7 @@ export default function Form({
     languages = ['it', 'en'],
     onSubmitUrl = '/admin/categorie/create',
     existingData = null,
+    params = 'add'
 }) {
     
     const { data, setData, post, put, processing, errors } = useForm({

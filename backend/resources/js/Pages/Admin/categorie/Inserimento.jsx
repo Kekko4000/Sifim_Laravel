@@ -6,6 +6,7 @@ export default function Inserimento() {
       <h1 className="text-xl font-bold mb-4">Aggiungi Categoria</h1>
       <Form
         onSubmitUrl={`/admin/categorie/create`}
+        params = {'add'}
       />
     </div>
   );

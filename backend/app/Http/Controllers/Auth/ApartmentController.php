@@ -60,32 +60,41 @@ class ApartmentController extends Controller
                 //    se non è presente, lo imposto a stringa vuota o null
                 $data['nome'] = $request->input('meta.it.name', '');
 
+                $disk = app()->environment('public') ? Storage::disk('s3') : Storage::disk('public');
+
                 // 3) Gestione upload immagine
                 if ($request->hasFile('image')) {
-                    // 0) istanzia il manager (fallo qui o in __construct)
-                    $manager = new ImageManager(new Driver); // new ImagickDriver() se preferisci
+                    $manager = new ImageManager(new Driver());
 
-                    // 1) salva l’originale
-                    $originalPath = $request->file('image')->store('apartments/original', 'public');
+                    // 1) salva l’originale (con visibilità pubblica)
+                    // - se usi sempre S3 puoi fare direttamente: Storage::disk('s3')->putFile(...)
+                    $originalPath = $request->file('image')->store(
+                        'apartments/original',
+                        ['disk' => app()->environment('production') ? 's3' : 'public', 'visibility' => 'public']
+                    );
 
-                    // 2) leggi e orienta l’immagine
-                    $img = $manager->read($request->file('image')->getRealPath())
-                                ->orient(); // rispetta EXIF
+                    // 2) leggi e orienta
+                    $img = $manager->read($request->file('image')->getRealPath())->orient();
 
-                    // 3) crea la cover ridotta (max 400x400 mantenendo proporzioni)
+                    // 3) cover ridotta
                     $imgSmall = (clone $img)->scaleDown(width: 400, height: 400);
 
-                    // 4) codifica in WebP qualità 80 (molto leggero)
+                    // 4) codifica webp (leggera)
                     $bytes = $imgSmall->toWebp(quality: 80);
 
-                    // 5) salva la cover
+                    // 5) salva la cover (public + headers utili)
                     $name = pathinfo($request->file('image')->hashName(), PATHINFO_FILENAME) . '.webp';
                     $coverPath = "apartments/covers/{$name}";
-                    Storage::disk('public')->put($coverPath, (string) $bytes);
 
-                    // 6) metti nei dati per l'update
-                    $data['image'] = $originalPath;
-                    $data['image_cover'] = $coverPath;
+                    $disk->put($coverPath, (string) $bytes, [
+                        'visibility'    => 'public',
+                        'CacheControl'  => 'public, max-age=31536000, immutable',
+                        'ContentType'   => 'image/webp',
+                    ]);
+
+                    // 6) salva le chiavi (path) nel DB
+                    $data['image'] = $originalPath;     // es: apartments/original/xxxx.jpg
+                    $data['image_cover'] = $coverPath;  // es: apartments/covers/xxxx.webp
                 }
 
 
@@ -166,18 +175,41 @@ class ApartmentController extends Controller
 
                  
                 // 3) Se c'è un file immagine, gestiscilo
+                 $disk = app()->environment('public') ? Storage::disk('s3') : Storage::disk('public');
+
+                // 3) Gestione upload immagine
                 if ($request->hasFile('image')) {
-                    $manager = new ImageManager(new Driver); // new ImagickDriver() se preferisci
-                    $originalPath = $request->file('image')->store('apartments/original', 'public');
-                    $img = $manager->read($request->file('image')->getRealPath())
-                                ->orient(); // rispetta EXIF
+                    $manager = new ImageManager(new Driver());
+
+                    // 1) salva l’originale (con visibilità pubblica)
+                    // - se usi sempre S3 puoi fare direttamente: Storage::disk('s3')->putFile(...)
+                    $originalPath = $request->file('image')->store(
+                        'apartments/original',
+                        ['disk' => app()->environment('production') ? 's3' : 'public', 'visibility' => 'public']
+                    );
+
+                    // 2) leggi e orienta
+                    $img = $manager->read($request->file('image')->getRealPath())->orient();
+
+                    // 3) cover ridotta
                     $imgSmall = (clone $img)->scaleDown(width: 400, height: 400);
+
+                    // 4) codifica webp (leggera)
                     $bytes = $imgSmall->toWebp(quality: 80);
+
+                    // 5) salva la cover (public + headers utili)
                     $name = pathinfo($request->file('image')->hashName(), PATHINFO_FILENAME) . '.webp';
                     $coverPath = "apartments/covers/{$name}";
-                    Storage::disk('public')->put($coverPath, (string) $bytes);
-                    $data['image'] = $originalPath;
-                    $data['image_cover'] = $coverPath;
+
+                    $disk->put($coverPath, (string) $bytes, [
+                        'visibility'    => 'public',
+                        'CacheControl'  => 'public, max-age=31536000, immutable',
+                        'ContentType'   => 'image/webp',
+                    ]);
+
+                    // 6) salva le chiavi (path) nel DB
+                    $data['image'] = $originalPath;     // es: apartments/original/xxxx.jpg
+                    $data['image_cover'] = $coverPath;  // es: apartments/covers/xxxx.webp
                 }
 
                 // 4) Aggiorna l'appartamento
